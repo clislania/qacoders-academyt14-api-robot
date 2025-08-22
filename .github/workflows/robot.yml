@@ -20,6 +20,9 @@ jobs:
           pip install robotframework-requests
           pip install robotframework-faker
 
+      - name: Criar diretório logs
+        run: mkdir -p logs
+
       - name: Executando os testes de API Robot Framework
         run: |
           robot --outputdir logs/ .
