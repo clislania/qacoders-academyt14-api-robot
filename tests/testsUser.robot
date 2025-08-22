@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation         Pasta de Testes de API - Usuários
 
-Resource       ../resources/main_Clis.resource
+Resource       ../resources/main.resource
 
 *** Test Cases ***
 CT 01: Teste Login

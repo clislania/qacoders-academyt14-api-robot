@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation    Keywords para o PATH /Users 
 Resource    resource.robot
-Resource    main_Clis.resource
+Resource    main.resource
 
 *** Keywords ***
 Criar sessao User
