@@ -20,9 +20,6 @@ jobs:
           pip install robotframework-requests
           pip install robotframework-faker
 
-      - name: Criar diretório logs
-        run: mkdir -p logs
-
       - name: Executando os testes de API Robot Framework
         run: |
           robot --outputdir logs/ .
@@ -35,7 +32,7 @@ jobs:
           path: logs
 
   deploy:
-    name: Deploy github pages
+    name: Deploy GitHub Pages
     runs-on: ubuntu-24.04
     if: always() # Executa mesmo se o job de teste falhar
     needs: 
@@ -51,8 +48,6 @@ jobs:
     steps:
       - name: Setup pages
         uses: actions/configure-pages@v4
-        with:
-          build_dir: logs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
