@@ -17,9 +17,8 @@ jobs:
       - name: Instalar dependências
         run: |
           pip install robotframework
-          pip install robotframework requests
-          pip install --upgrade robotframework-seleniumlibrary
-          pip install Faker
+          pip install robotframework-requests
+          pip install robotframework-faker
 
       - name: Executando os testes de API Robot Framework
         run: |
