@@ -32,7 +32,7 @@ jobs:
         if: always()
         with:
           name: robot-framework-report
-          path: ./logs
+          path: logs
 
   deploy:
     name: Deploy github pages
@@ -52,12 +52,12 @@ jobs:
       - name: Setup pages
         uses: actions/configure-pages@v4
         with:
-          build_dir: ./logs
+          build_dir: logs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./logs
+          path: logs
 
       - name: Deploy to GitHub Pages
         id: deployment
