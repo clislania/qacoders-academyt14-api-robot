@@ -49,10 +49,16 @@ jobs:
       - name: Setup pages
         uses: actions/configure-pages@v4
 
+      - name: Download artifact
+        uses: actions/download-pages-artifact@v3
+        with: 
+          name: robot-framework-report
+          path: results/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: logs
+          path: results/
 
       - name: Deploy to GitHub Pages
         id: deployment
