@@ -1,0 +1,86 @@
+name: Robot Framework Tests
+on:
+  [push,workflow_dispatch]
+jobs:
+  test:
+    name: API test com Robot Framework
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Clonar arquivo do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Instalar dependências
+        run: |
+          pip install robotframework
+          pip install robotframework requests
+          pip install --upgrade robotframework-seleniumlibrary
+          pip install Faker
+
+      - name: Executando os testes de API Robot Framework
+        run: |
+          robot --outputdir logs/ .
+
+          name: Test Report
+          uses: actions/upload-artifact@v4  
+          if: always()
+          with:
+            name: robot-framework-report
+            path: logs/
+
+  deploy:
+    name: Deploy github pages
+    runs-on: ubuntu-24.04
+    if: always() # Executa mesmo se o job de teste falhar
+    needs: 
+      - test
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: https://clislania.github.io/qacoders-academyt14-api-robot # Substitua pelo seu usuário e repositório
+      
+    steps:
+      - name: Setup pages
+        uses: actions/configure-pages@v4
+        with:
+          build_dir: ./logs
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./logs
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
+
+
+  # robot:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Set up Python 3.11
+  #       uses: actions/setup-python@v4
+  #       with:
+  #         python-version: 3.11
+  #     - name: Install dependencies
+  #       run: |
+  #         python -m pip install --upgrade pip
+  #         pip install robotframework
+  #     - name: Run Robot Framework tests
+  #       run: |
+  #         robot tests/
+  #     - name: Upload Robot Framework results
+  #       if: always()
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: robot-results
+  
